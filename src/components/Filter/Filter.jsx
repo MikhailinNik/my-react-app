@@ -1,7 +1,30 @@
 import Pagination from '../Pagination/Pagination';
+import Genre from './Genre/Genre';
 // import Select from './Select/Select';
 
 import styles from './Filter.module.scss';
+
+const array = [
+	'боевик',
+	'приключения',
+	'мультфильм',
+	'комедия',
+	'криминал',
+	'документальный',
+	'драма',
+	'семейный',
+	'фэнтези',
+	'история',
+	'ужасы',
+	'музыка',
+	'детектив',
+	'мелодрама',
+	'фантастика',
+	'телевизионный фильм',
+	'триллер',
+	'военный',
+	'вестерн',
+];
 
 function Filter() {
 	return (
@@ -18,7 +41,10 @@ function Filter() {
 				<option value="">2020</option>
 			</select>
 			<ul className={styles.list}>
-				<li className={styles.item}>
+				{array.map(item => (
+					<Genre title={item} />
+				))}
+				{/* <li className={styles.item}>
 					<input type="checkbox" />
 					<span>Thriller</span>
 				</li>
@@ -97,7 +123,7 @@ function Filter() {
 				<li className={styles.item}>
 					<input type="checkbox" />
 					<span>Thriller</span>
-				</li>
+				</li> */}
 			</ul>
 			<Pagination />
 		</div>
