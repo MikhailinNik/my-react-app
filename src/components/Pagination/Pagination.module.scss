@@ -1,0 +1,38 @@
+.root {
+	display: flex;
+	flex-direction: column;
+
+	margin-top: 10px;
+}
+
+.buttons {
+	display: flex;
+	flex-direction: row;
+
+	gap: 10px;
+}
+
+.button {
+	width: -webkit-fill-available;
+	height: 35px;
+
+	background-color: rgb(38, 99, 255);
+	color: #fff;
+	border: none;
+
+	font-size: 15px;
+
+	cursor: pointer;
+
+	&:hover {
+		background-color: rgba(38, 99, 255, 0.557);
+		transition: all 0.2s;
+	}
+}
+
+.countPage {
+	display: flex;
+	justify-content: center;
+
+	margin-top: 10px;
+}

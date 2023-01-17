@@ -1,0 +1,48 @@
+.root {
+	width: 300px;
+	background-color: #fff;
+	color: #000;
+
+	margin: 20px;
+	margin-left: 50px;
+	padding: 15px;
+
+	border-radius: 5px;
+	border: 1px solid #fff;
+	-webkit-box-shadow: 0px 3px 8px 1px rgba(34, 60, 80, 0.2);
+	-moz-box-shadow: 0px 3px 8px 1px rgba(34, 60, 80, 0.2);
+	box-shadow: 0px 3px 8px 1px rgba(34, 60, 80, 0.2);
+}
+
+.removeAllFilters {
+	background-color: #000;
+	color: #fff;
+	border-radius: 5px;
+	width: -webkit-fill-available;
+	height: 30px;
+
+	text-align: center;
+	line-height: 20px;
+
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+//Может быть придется удалить этот класс
+.select {
+	width: -webkit-fill-available;
+	height: 30px;
+	margin-bottom: 10px;
+	padding-left: 5px;
+	text-align: left;
+}
+
+.list {
+	width: -webkit-fill-available;
+
+	.item {
+		input {
+			margin-right: 10px;
+		}
+	}
+}
