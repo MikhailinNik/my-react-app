@@ -1,8 +1,14 @@
 import styles from './Card.module.scss';
 
-import poster from '../../assets/posterjpg.jpg';
+import poster from '../../assets/poster.jpg';
 
-function Card() {
+import { Movie } from '../../db';
+
+type movie = {
+	movie: Movie;
+};
+
+function Card({ movie }: movie) {
 	return (
 		<div className={styles.root}>
 			<div className={styles.poster}>
@@ -10,7 +16,7 @@ function Card() {
 			</div>
 			<div className={styles.content}>
 				<div className={styles.header}>
-					<span>Рейтинг: 8.4</span>
+					<span>Рейтинг: {movie.vote_average}</span>
 					<div className={styles.icons}>
 						<svg
 							enableBackground="new 0 0 50 50"
@@ -46,7 +52,7 @@ function Card() {
 					</div>
 				</div>
 				<div className={styles.title}>
-					<h4>Истребитель демонов: Поезд бесконечный</h4>
+					<h4>{movie.title}</h4>
 				</div>
 				<div className={styles.about}>
 					<span>Подробнее</span>

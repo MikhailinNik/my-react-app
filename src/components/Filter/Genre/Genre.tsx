@@ -1,6 +1,10 @@
 import styles from './Genre.module.scss';
 
-function Genre({ title }) {
+type Props = {
+	title: string;
+};
+
+function Genre({ title }: Props) {
 	return (
 		<div className={styles.item}>
 			<input type="checkbox" />
