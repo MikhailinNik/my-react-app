@@ -1,14 +1,12 @@
-import Pagination from '../Pagination/Pagination';
 import Genre from './Genre/Genre';
 
 import styles from './Filter.module.scss';
 
-type CheckboxProps = {
-	id: number;
-	name: string;
+type Props = {
+	checkboxes: [];
 };
 
-function Filter({ checkboxes }: { checkboxes: [] }) {
+function Filter({ checkboxes }: Props) {
 	return (
 		<div className={styles.root}>
 			<h2>Фильтры: </h2>
@@ -26,7 +24,6 @@ function Filter({ checkboxes }: { checkboxes: [] }) {
 					<Genre key={item.id} title={item.name} />
 				))}
 			</ul>
-			<Pagination />
 		</div>
 	);
 }

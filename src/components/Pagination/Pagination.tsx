@@ -1,14 +1,38 @@
 import styles from './Pagination.module.scss';
 
-function Pagination() {
+type Props = {
+	totalPageCount: number;
+	currentPage: number;
+	onPageChanged: () => void;
+};
+
+function Pagination({ totalPageCount, currentPage, onPageChanged }: Props) {
+	const onPrevious = () => {
+		return onPageChanged(currentPage - 1);
+	};
+	const onNext = () => {
+		return onPageChanged(currentPage + 1);
+	};
 	return (
 		<div className={styles.root}>
 			<div className={styles.buttons}>
-				<button className={styles.button}>Назад</button>
-				<button className={styles.button}>Вперед</button>
+				<button
+					disabled={currentPage === 1 ? true : false}
+					className={currentPage === 1 ? styles.buttonDisabled : styles.button}
+					onClick={() => onPrevious()}>
+					Назад
+				</button>
+				<button
+					disabled={currentPage === totalPageCount ? true : false}
+					className={currentPage === totalPageCount ? styles.buttonDisabled : styles.button}
+					onClick={() => onNext()}>
+					Вперед
+				</button>
 			</div>
 			<div className={styles.countPage}>
-				<span>1 of 1455</span>
+				<span>
+					{currentPage} of {totalPageCount}
+				</span>
 			</div>
 		</div>
 	);

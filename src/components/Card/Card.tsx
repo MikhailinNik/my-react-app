@@ -1,7 +1,5 @@
 import styles from './Card.module.scss';
 
-import poster from '../../assets/poster.jpg';
-
 import { Movie } from '../../db';
 
 type movie = {
@@ -9,11 +7,10 @@ type movie = {
 };
 
 function Card({ movie }: movie) {
+	const imagePath = movie.poster_path || movie.backdrop_path;
 	return (
 		<div className={styles.root}>
-			<div className={styles.poster}>
-				<img src={poster} alt="Poster" />
-			</div>
+			<img src={'https://image.tmdb.org/t/p/w500' + imagePath} alt="Poster" height={295} />
 			<div className={styles.content}>
 				<div className={styles.header}>
 					<span>Рейтинг: {movie.vote_average}</span>

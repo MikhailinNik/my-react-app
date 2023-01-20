@@ -2,15 +2,16 @@ import styles from './CardList.module.scss';
 
 import Card from '../Card/Card';
 import { Movie } from '../../db';
+import { useSelector } from 'react-redux';
 
-type movies = {
-	movies: Movie[];
+type Props = {
+	movies: [];
 };
 
-function CardList({ movies }: movies) {
+function CardList({ movies }: Props) {
 	return (
 		<div className={styles.root}>
-			{movies.map(movie => (
+			{movies.map((movie: Movie) => (
 				<Card key={movie.id} movie={movie} />
 			))}
 		</div>

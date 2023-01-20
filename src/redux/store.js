@@ -4,7 +4,7 @@ import { combineReducers } from 'redux';
 import { movie } from './reducers/moviesReducer';
 
 const rootReducer = combineReducers({
-	movie,
+	listFilms: movie,
 });
 
 export const store = createStore(rootReducer);

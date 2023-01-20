@@ -1,5 +1,5 @@
 .root {
-	width: 350px;
+	width: 395px;
 
 	display: flex;
 	flex-direction: row;
@@ -12,9 +12,8 @@
 	box-shadow: 0px 3px 8px 1px rgba(34, 60, 80, 0.2);
 }
 
-.poster {
+img {
 	width: -webkit-fill-available;
-	height: 100%;
 }
 
 .content {
