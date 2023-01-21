@@ -2,7 +2,6 @@ import styles from './CardList.module.scss';
 
 import Card from '../Card/Card';
 import { Movie } from '../../db';
-import { useSelector } from 'react-redux';
 
 type Props = {
 	movies: [];

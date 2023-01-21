@@ -22,6 +22,7 @@ function Home() {
 		return dispatch(setMovies(movies));
 	}
 
+	console.log('listMovies: ', listMovies);
 	const onPageChanged = (page: number): void => {
 		setCurrentPage(page);
 	};
@@ -40,7 +41,7 @@ function Home() {
 		}
 
 		const newList = listMovies[0].slice(start, end);
-		console.log('newList: ', newList);
+
 		return newList;
 	};
 
