@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setMovies } from '../redux/actions';
+import { setMovies, sortByPopularityDesc } from '../redux/actions';
 
 import Filter from '../components/Filter/Filter';
 import CardList from '../components/CardList/CardList';
@@ -9,7 +9,7 @@ import Pagination from '../components/Pagination/Pagination';
 
 import { movies, checkboxes } from '../db';
 
-const FIRST_PAGE = 1;
+import { FIRST_PAGE } from '../js/const';
 
 function Home() {
 	const dispatch = useDispatch();
@@ -18,18 +18,22 @@ function Home() {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize, setPageSize] = useState(10);
 
-	if (listMovies.length === 0) {
-		return dispatch(setMovies(movies));
-	}
+	useEffect(() => {
+		setTotalCount(listMovies.length);
+		if (listMovies.length === 0) {
+			dispatch(setMovies(movies));
+			dispatch(sortByPopularityDesc(movies));
+		}
+	}, [listMovies, totalCount, currentPage]);
 
-	console.log('listMovies: ', listMovies);
 	const onPageChanged = (page: number): void => {
 		setCurrentPage(page);
 	};
 
+	console.log('totalCount: ', totalCount);
 	const totalPageCount = Math.ceil(totalCount / pageSize);
 
-	const start = currentPage * pageSize - 1;
+	const start = currentPage * pageSize - pageSize;
 	const end = start + pageSize;
 
 	const range = (start: number, end: number) => {
@@ -37,10 +41,10 @@ function Home() {
 		const secondElement = pageSize;
 
 		if (currentPage === FIRST_PAGE) {
-			return listMovies[0].slice(firstElement, secondElement);
+			return listMovies.slice(firstElement, secondElement);
 		}
 
-		const newList = listMovies[0].slice(start, end);
+		const newList = listMovies.slice(start, end);
 
 		return newList;
 	};
@@ -50,7 +54,7 @@ function Home() {
 	return (
 		<div className="content">
 			<div className="filters">
-				<Filter movies={movies} checkboxes={checkboxes} />
+				<Filter checkboxes={checkboxes} setTotalCount={setTotalCount} movies={movies} />
 
 				<Pagination
 					totalPageCount={totalPageCount}

@@ -1,13 +1,17 @@
 import styles from './Select.module.scss';
 
+import { SELECT_VALUES } from '../../../js/const';
+
 type Props = {
-	props: string;
+	props: any;
 };
 
 function Select(props: Props) {
 	return (
-		<select name="" id="" className={styles.select}>
-			<option value="">{props}</option>
+		<select name="" id="" className={styles.select} onChange={props}>
+			{SELECT_VALUES.map(item => (
+				<option value={props}>{item}</option>
+			))}
 		</select>
 	);
 }

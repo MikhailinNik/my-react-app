@@ -7,7 +7,7 @@ type Props = {
 	movies: [];
 };
 
-function CardList({ movies }: Props) {
+function CardList({ movies, setTotalCount }: Props) {
 	return (
 		<div className={styles.root}>
 			{movies.map((movie: Movie) => (
