@@ -17,6 +17,13 @@
 
 	margin-top: 10px;
 	margin-bottom: 10px;
+
+	cursor: pointer;
+
+	&:hover {
+		background-color: rgb(255, 255, 255);
+		color: #000;
+	}
 }
 
 //Может быть придется удалить этот класс

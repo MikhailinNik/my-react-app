@@ -6,4 +6,11 @@ export const SORT_BY = {
 };
 export const FIRST_PAGE = 1;
 
-export const SORT_BY_YEAR = [2020, 2019, 2018, 2017];
+export const SORT_BY_YEAR = {
+	1: 2020,
+	2: 2019,
+	3: 2018,
+	4: 2017,
+};
+
+export const CHECKED = 'checked';

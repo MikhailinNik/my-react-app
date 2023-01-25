@@ -1,6 +1,5 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
 	sortByPopularityDesc,
@@ -21,11 +20,17 @@ type Props = {
 	checkboxes: [];
 };
 
-function Filter({ checkboxes, setTotalCount, movies }: Props) {
+function Filter({ checkboxes, movies }: Props) {
 	const dispatch = useDispatch();
-	const { listMovies } = useSelector(state => state.listFilms);
+	const { listMovies, selectedGenres } = useSelector(state => state.listFilms);
+	const [selected, setSelected] = useState('');
+	const [selectedByYear, setSelectedByYear] = useState('');
+	const [selectedCheckboxes, setSelectedCheckboxes] = useState(new Set([]));
+	console.log('selectedCheckboxes: ', selectedCheckboxes);
 
 	const sortList = (evt: any) => {
+		setSelected(evt.target.value);
+
 		switch (evt.target.value) {
 			case SORT_BY.popularityDesc:
 				return dispatch(sortByPopularityDesc(listMovies));
@@ -45,17 +50,47 @@ function Filter({ checkboxes, setTotalCount, movies }: Props) {
 	};
 
 	const sortListByYear = (evt: any) => {
-		dispatch(setMovies(movies));
+		setSelectedByYear(evt.target.value);
 
-		return dispatch(sortByYear(evt.target.value));
+		dispatch(setMovies(movies));
+		dispatch(sortByYear(evt.target.value));
+	};
+
+	const onResetAllFilters = () => {
+		setSelected(SORT_BY.popularityDesc);
+		setSelectedByYear(SORT_BY_YEAR[1]);
+
+		// dispatch(setMovies(movies));
+		setSelectedCheckboxes(new Set([]));
+		dispatch(sortByPopularityDesc(movies));
+	};
+
+	const sortAllMovies = () => {
+		let target;
+		const select = {
+			target: (target = {
+				value: selected,
+			}),
+		};
+
+		const year = {
+			target: (target = {
+				value: selectedByYear,
+			}),
+		};
+
+		sortList(select);
+		sortListByYear(year);
 	};
 
 	return (
 		<div className={styles.root}>
 			<h2>Фильтры: </h2>
-			<button className={styles.removeAllFilters}>Сбросить все фильтры</button>
+			<button className={styles.removeAllFilters} onClick={onResetAllFilters}>
+				Сбросить все фильтры
+			</button>
 			<span>Сортировать по: </span>
-			<select name="" id="" className={styles.select} onChange={sortList}>
+			<select value={selected} className={styles.select} onChange={sortList}>
 				{Object.values(SORT_BY).map((item: string) => (
 					<option key={item} value={item}>
 						{item}
@@ -63,14 +98,23 @@ function Filter({ checkboxes, setTotalCount, movies }: Props) {
 				))}
 			</select>
 			<span>Год релиза: </span>
-			<select name="" id="" className={styles.select} onChange={sortListByYear}>
-				{SORT_BY_YEAR.map((year: number) => (
-					<option value={year.toString()}>{year.toString()}</option>
+			<select value={selectedByYear} className={styles.select} onChange={sortListByYear}>
+				{Object.values(SORT_BY_YEAR).map((year: number) => (
+					<option key={year} value={year.toString()}>
+						{year.toString()}
+					</option>
 				))}
 			</select>
 			<ul className={styles.list}>
 				{checkboxes.map((item: { id: number; name: string }) => (
-					<Genre key={item.id} title={item.name} />
+					<Genre
+						key={item.id}
+						title={item.name}
+						id={item.id}
+						sortAllMovies={sortAllMovies}
+						selectedCheckboxes={selectedCheckboxes}
+						setSelectedCheckboxes={setSelectedCheckboxes}
+					/>
 				))}
 			</ul>
 		</div>

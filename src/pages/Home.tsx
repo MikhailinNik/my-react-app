@@ -19,19 +19,26 @@ function Home() {
 	const [pageSize, setPageSize] = useState(10);
 
 	useEffect(() => {
+		dispatch(setMovies(movies));
+		dispatch(sortByPopularityDesc(movies));
+	}, []);
+
+	useEffect(() => {
 		setTotalCount(listMovies.length);
 		if (listMovies.length === 0) {
 			dispatch(setMovies(movies));
 			dispatch(sortByPopularityDesc(movies));
 		}
+
+		if (currentPage > totalCount) {
+			setCurrentPage(Math.ceil(totalCount / pageSize));
+		}
 	}, [listMovies, totalCount, currentPage]);
 
+	const totalPageCount = Math.ceil(totalCount / pageSize);
 	const onPageChanged = (page: number): void => {
 		setCurrentPage(page);
 	};
-
-	console.log('totalCount: ', totalCount);
-	const totalPageCount = Math.ceil(totalCount / pageSize);
 
 	const start = currentPage * pageSize - pageSize;
 	const end = start + pageSize;
