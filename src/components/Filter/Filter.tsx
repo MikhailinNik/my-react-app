@@ -8,25 +8,39 @@ import {
 	sortByRateDesc,
 	sortByRateAsc,
 	sortByYear,
+	auth,
+	authByLocalStorage,
 } from '../../redux/actions';
 
 import Genre from './Genre/Genre';
 
 import styles from './Filter.module.scss';
 
-import { SORT_BY, SORT_BY_YEAR } from '../../js/const';
+import { SORT_BY, SORT_BY_YEAR, AUTH_SORT } from '../../js/const';
 
-type Props = {
+interface Props {
 	checkboxes: [];
-};
+	movies: Movie[];
+}
 
 function Filter({ checkboxes, movies }: Props) {
 	const dispatch = useDispatch();
-	const { listMovies, selectedGenres } = useSelector(state => state.listFilms);
+	const { listMovies } = useSelector(state => state.listFilms);
+	const { isAuth } = useSelector(state => state.users);
 	const [selected, setSelected] = useState('');
 	const [selectedByYear, setSelectedByYear] = useState('');
 	const [selectedCheckboxes, setSelectedCheckboxes] = useState(new Set([]));
-	console.log('selectedCheckboxes: ', selectedCheckboxes);
+
+	useEffect(() => {
+		if (!isAuth) {
+			try {
+				const userAuth = localStorage.getItem('isAuth');
+				dispatch(authByLocalStorage(JSON.parse(userAuth)));
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	}, []);
 
 	const sortList = (evt: any) => {
 		setSelected(evt.target.value);
@@ -105,6 +119,15 @@ function Filter({ checkboxes, movies }: Props) {
 					</option>
 				))}
 			</select>
+			{isAuth ? (
+				<select className={styles.select}>
+					{Object.values(AUTH_SORT).map((value: string) => (
+						<option key={value} value={value}>
+							{value}
+						</option>
+					))}
+				</select>
+			) : null}
 			<ul className={styles.list}>
 				{checkboxes.map((item: { id: number; name: string }) => (
 					<Genre

@@ -13,4 +13,12 @@ export const SORT_BY_YEAR = {
 	4: 2017,
 };
 
-export const CHECKED = 'checked';
+export const AUTH_SORT = {
+	seeLater: 'Смотреть позже',
+	favorite: 'Избранные',
+};
+
+export const LOGIN = {
+	login: '123',
+	password: 123,
+};
