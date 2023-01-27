@@ -8,7 +8,6 @@ import {
 	sortByRateDesc,
 	sortByRateAsc,
 	sortByYear,
-	auth,
 	authByLocalStorage,
 } from '../../redux/actions';
 
@@ -27,10 +26,13 @@ function Filter({ checkboxes, movies }: Props) {
 	const dispatch = useDispatch();
 	const { listMovies } = useSelector(state => state.listFilms);
 	const { isAuth } = useSelector(state => state.users);
+	const { favorites, seeLater } = useSelector(state => state.favorites);
 	const [selected, setSelected] = useState('');
 	const [selectedByYear, setSelectedByYear] = useState('');
 	const [selectedCheckboxes, setSelectedCheckboxes] = useState(new Set([]));
 
+	console.log('favorites: ', favorites);
+	console.log('seeLater: ', seeLater);
 	useEffect(() => {
 		if (!isAuth) {
 			try {
@@ -79,6 +81,14 @@ function Filter({ checkboxes, movies }: Props) {
 		dispatch(sortByPopularityDesc(movies));
 	};
 
+	const sortUserMovies = () => {
+		debugger;
+		if (AUTH_SORT.favorite) {
+			return dispatch(setMovies(favorites));
+		}
+		return dispatch(setMovies(seeLater));
+	};
+
 	const sortAllMovies = () => {
 		let target;
 		const select = {
@@ -120,7 +130,7 @@ function Filter({ checkboxes, movies }: Props) {
 				))}
 			</select>
 			{isAuth ? (
-				<select className={styles.select}>
+				<select className={styles.select} onChange={sortUserMovies}>
 					{Object.values(AUTH_SORT).map((value: string) => (
 						<option key={value} value={value}>
 							{value}

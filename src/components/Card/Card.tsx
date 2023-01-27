@@ -1,13 +1,38 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { addToFavorite, addToSeeLater } from '../../redux/actions';
+
+import CardDetails from '../../pages/CardDetails/CardDetails';
+
 import styles from './Card.module.scss';
 
 import { Movie } from '../../db';
+
+import favoriteIcon from '../../assets/favorite.svg';
+import saveIcon from '../../assets/save.svg';
 
 type movie = {
 	movie: Movie;
 };
 
 function Card({ movie }: movie) {
+	const dispatch = useDispatch();
+	const { isAuth } = useSelector(state => state.users);
 	const imagePath = movie.poster_path || movie.backdrop_path;
+
+	const onAddToFavorite = () => {
+		if (isAuth) {
+			return dispatch(addToFavorite(movie));
+		}
+	};
+
+	const onAddToSeeLater = () => {
+		if (isAuth) {
+			return dispatch(addToSeeLater(movie));
+		}
+	};
+
 	return (
 		<div className={styles.root}>
 			<img src={'https://image.tmdb.org/t/p/w500' + imagePath} alt="Poster" height={295} />
@@ -15,44 +40,31 @@ function Card({ movie }: movie) {
 				<div className={styles.header}>
 					<span>Рейтинг: {movie.vote_average}</span>
 					<div className={styles.icons}>
-						<svg
-							enableBackground="new 0 0 50 50"
-							height="20px"
-							id="Layer_1"
-							version="1.1"
-							viewBox="0 0 50 50"
-							width="20px"
-							xmlSpace="preserve"
-							xmlns="http://www.w3.org/2000/svg"
-							xmlnsXlink="http://www.w3.org/1999/xlink">
-							<rect fill="none" height="50" width="50" />
-							<polygon
-								fill="none"
-								points="25,3.553 30.695,18.321 46.5,19.173   34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321 "
-								stroke="#000000"
-								strokeMiterlimit="10"
-								strokeWidth="4"
-							/>
-						</svg>
-						<svg
-							fill="none"
-							height="20"
-							viewBox="0 0 24 24"
-							width="17"
-							xmlns="http://www.w3.org/2000/svg">
-							<path
-								d="M3.3 3H20.7C20.8657 3 21 3.13431 21 3.3V21.4811C21 21.7119 20.7503 21.8562 20.5503 21.7411L12.1497 16.9044C12.057 16.851 11.943 16.851 11.8503 16.9044L3.44969 21.7411C3.24969 21.8562 3 21.7119 3 21.4811V3.3C3 3.13431 3.13431 3 3.3 3Z"
-								stroke="black"
-								strokeWidth="2"
-							/>
-						</svg>
+						<img
+							onClick={onAddToFavorite}
+							className={styles.favoriteIcon}
+							src={favoriteIcon}
+							alt="Favorite"
+							width={20}
+							height={20}
+						/>
+						<img
+							onClick={onAddToSeeLater}
+							className={styles.saveIcon}
+							src={saveIcon}
+							alt="Save"
+							width={18}
+							height={20}
+						/>
 					</div>
 				</div>
 				<div className={styles.title}>
 					<h4>{movie.title}</h4>
 				</div>
 				<div className={styles.about}>
-					<span>Подробнее</span>
+					<Link to="/card" state={{ movie }}>
+						<span className={styles.details}>Подробнее</span>
+					</Link>
 				</div>
 			</div>
 		</div>

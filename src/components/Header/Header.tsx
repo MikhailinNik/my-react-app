@@ -1,10 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 
 import styles from './Header.module.scss';
 
 import { logOut } from '../../redux/actions';
-import { useDispatch } from 'react-redux';
 
 function Header() {
 	const dispatch = useDispatch();
@@ -14,9 +14,12 @@ function Header() {
 		delete localStorage.isAuth;
 		dispatch(logOut());
 	};
+
 	return (
 		<nav className={styles.root}>
-			<h2>Home</h2>
+			<Link to="/">
+				<h2>Home</h2>
+			</Link>
 			{isAuth ? (
 				<button onClick={onLogOut}>Выйти</button>
 			) : (

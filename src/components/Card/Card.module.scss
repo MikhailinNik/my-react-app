@@ -15,7 +15,11 @@
 }
 
 img {
-	width: -webkit-fill-available;
+	cursor: pointer;
+}
+
+.saveIcon {
+	margin-left: 10px;
 }
 
 .content {
@@ -64,4 +68,8 @@ img {
 	border-top: 1px solid #ccc;
 
 	cursor: pointer;
+}
+
+.details {
+	text-decoration: none;
 }

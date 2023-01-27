@@ -10,6 +10,8 @@ export const SORT_SELECTED_IDS = 'SORT_SELECTED_IDS';
 export const IS_AUTH = 'IS_AUTH';
 export const IS_AUTH_LOCAL_STORAGE = 'IS_AUTH_LOCAL_STORAGE';
 export const LOG_OUT = 'LOG_OUT';
+export const ADD_TO_FAVORITE = 'ADD_TO_FAVORITE';
+export const ADD_TO_SEE_LATER = 'ADD_TO_SEE_LATER';
 
 const actionCreator = type => {
 	return payload => {
@@ -32,3 +34,5 @@ export const sortSelectedGenre = actionCreator(SORT_SELECTED_IDS);
 export const auth = actionCreator(IS_AUTH);
 export const authByLocalStorage = actionCreator(IS_AUTH_LOCAL_STORAGE);
 export const logOut = actionCreator(LOG_OUT);
+export const addToFavorite = actionCreator(ADD_TO_FAVORITE);
+export const addToSeeLater = actionCreator(ADD_TO_SEE_LATER);
