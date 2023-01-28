@@ -11,7 +11,6 @@ function CardDetails() {
 		backgroundImage: 'url(' + 'https://image.tmdb.org/t/p/w500' + movie.backdrop_path + ')',
 	};
 
-	console.log('movie: ', movie);
 	return (
 		<div className={styles.root}>
 			<div className={styles.header} style={sectionStyle}>

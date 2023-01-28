@@ -13,8 +13,8 @@ export const LOG_OUT = 'LOG_OUT';
 export const ADD_TO_FAVORITE = 'ADD_TO_FAVORITE';
 export const ADD_TO_SEE_LATER = 'ADD_TO_SEE_LATER';
 
-const actionCreator = type => {
-	return payload => {
+const actionCreator = (type: string) => {
+	return (payload: any) => {
 		return {
 			type,
 			payload,

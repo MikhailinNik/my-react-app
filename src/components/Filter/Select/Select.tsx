@@ -1,6 +1,6 @@
 import styles from './Select.module.scss';
 
-import { SELECT_VALUES } from '../../../js/const';
+import { SELECT_VALUES } from '../../../ts/const';
 
 type Props = {
 	props: any;

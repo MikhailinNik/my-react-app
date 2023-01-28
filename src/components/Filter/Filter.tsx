@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../ts/hooks';
 
 import {
 	sortByPopularityDesc,
@@ -9,40 +9,40 @@ import {
 	sortByRateAsc,
 	sortByYear,
 	authByLocalStorage,
+	SORT_BY_POPULARITY_DESC,
 } from '../../redux/actions';
 
 import Genre from './Genre/Genre';
 
 import styles from './Filter.module.scss';
 
-import { SORT_BY, SORT_BY_YEAR, AUTH_SORT } from '../../js/const';
+import { SORT_BY, SORT_BY_YEAR, AUTH_SORT } from '../../ts/const';
+import { CheckBoxes, Movie } from '../../db';
 
 interface Props {
-	checkboxes: [];
+	checkboxes: CheckBoxes[];
 	movies: Movie[];
 }
 
 function Filter({ checkboxes, movies }: Props) {
-	const dispatch = useDispatch();
-	const { listMovies } = useSelector(state => state.listFilms);
-	const { isAuth } = useSelector(state => state.users);
-	const { favorites, seeLater } = useSelector(state => state.favorites);
-	const [selected, setSelected] = useState('');
-	const [selectedByYear, setSelectedByYear] = useState('');
+	const dispatch = useAppDispatch();
+	const { listMovies } = useAppSelector(state => state.listFilms);
+	const { isAuth } = useAppSelector(state => state.users);
+	const { favorites, seeLater } = useAppSelector(state => state.favorites);
+	const [selected, setSelected] = useState(SORT_BY_POPULARITY_DESC);
+	const [selectedByYear, setSelectedByYear] = useState(0);
 	const [selectedCheckboxes, setSelectedCheckboxes] = useState(new Set([]));
 
-	console.log('favorites: ', favorites);
-	console.log('seeLater: ', seeLater);
 	useEffect(() => {
 		if (!isAuth) {
 			try {
-				const userAuth = localStorage.getItem('isAuth');
+				const userAuth: string | null = localStorage.getItem('isAuth');
 				dispatch(authByLocalStorage(JSON.parse(userAuth)));
 			} catch (error) {
 				console.log(error);
 			}
 		}
-	}, []);
+	}, [selected, selectedByYear, listMovies]);
 
 	const sortList = (evt: any) => {
 		setSelected(evt.target.value);
@@ -69,20 +69,21 @@ function Filter({ checkboxes, movies }: Props) {
 		setSelectedByYear(evt.target.value);
 
 		dispatch(setMovies(movies));
-		dispatch(sortByYear(evt.target.value));
+
+		if (evt.target.value !== 0) {
+			dispatch(sortByYear(evt.target.value));
+		}
 	};
 
 	const onResetAllFilters = () => {
 		setSelected(SORT_BY.popularityDesc);
 		setSelectedByYear(SORT_BY_YEAR[1]);
 
-		// dispatch(setMovies(movies));
 		setSelectedCheckboxes(new Set([]));
 		dispatch(sortByPopularityDesc(movies));
 	};
 
 	const sortUserMovies = () => {
-		debugger;
 		if (AUTH_SORT.favorite) {
 			return dispatch(setMovies(favorites));
 		}
@@ -104,6 +105,7 @@ function Filter({ checkboxes, movies }: Props) {
 		};
 
 		sortList(select);
+
 		sortListByYear(year);
 	};
 

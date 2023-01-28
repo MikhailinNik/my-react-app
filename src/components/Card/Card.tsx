@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../ts/hooks';
+
 import { Link } from 'react-router-dom';
 
 import { addToFavorite, addToSeeLater } from '../../redux/actions';
-
-import CardDetails from '../../pages/CardDetails/CardDetails';
 
 import styles from './Card.module.scss';
 
@@ -17,8 +16,8 @@ type movie = {
 };
 
 function Card({ movie }: movie) {
-	const dispatch = useDispatch();
-	const { isAuth } = useSelector(state => state.users);
+	const dispatch = useAppDispatch();
+	const { isAuth } = useAppSelector(state => state.users);
 	const imagePath = movie.poster_path || movie.backdrop_path;
 
 	const onAddToFavorite = () => {

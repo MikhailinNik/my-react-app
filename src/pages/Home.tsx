@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../ts/hooks';
 import { setMovies, sortByPopularityDesc } from '../redux/actions';
 
 import Filter from '../components/Filter/Filter';
@@ -9,11 +9,11 @@ import Pagination from '../components/Pagination/Pagination';
 
 import { movies, checkboxes } from '../db';
 
-import { FIRST_PAGE } from '../js/const';
+import { FIRST_PAGE } from '../ts/const';
 
 function Home() {
-	const dispatch = useDispatch();
-	const { listMovies } = useSelector(state => state.listFilms);
+	const dispatch = useAppDispatch();
+	const { listMovies } = useAppSelector(state => state.listFilms);
 	const [totalCount, setTotalCount] = useState(movies.length);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize, setPageSize] = useState(10);
@@ -48,7 +48,8 @@ function Home() {
 		const secondElement = pageSize;
 
 		if (currentPage === FIRST_PAGE) {
-			return listMovies.slice(firstElement, secondElement);
+			const list = listMovies.slice(firstElement, secondElement);
+			return list;
 		}
 
 		const newList = listMovies.slice(start, end);
@@ -61,7 +62,7 @@ function Home() {
 	return (
 		<div className="content">
 			<div className="filters">
-				<Filter checkboxes={checkboxes} setTotalCount={setTotalCount} movies={movies} />
+				<Filter checkboxes={checkboxes} movies={movies} />
 
 				<Pagination
 					totalPageCount={totalPageCount}
@@ -69,7 +70,7 @@ function Home() {
 					onPageChanged={onPageChanged}
 				/>
 			</div>
-			<CardList currentPage={currentPage} movies={result} />
+			<CardList movies={result} />
 		</div>
 	);
 }

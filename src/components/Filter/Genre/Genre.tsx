@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../ts/hooks';
 
 import {
 	sortByGenre,
@@ -13,18 +13,21 @@ import styles from './Genre.module.scss';
 type Props = {
 	title: string;
 	id: number;
+	sortAllMovies: () => void;
+	selectedCheckboxes: Set<string>;
+	setSelectedCheckboxes: (arg0: Set<any>) => void;
 };
 
 function Genre({ title, id, sortAllMovies, selectedCheckboxes, setSelectedCheckboxes }: Props) {
-	const dispatch = useDispatch();
-	const { selectedGenres, listMovies } = useSelector(state => state.listFilms);
+	const dispatch = useAppDispatch();
+	const { selectedGenres, listMovies } = useAppSelector(state => state.listFilms);
+	console.log('selectedGenres: ', selectedGenres);
+	console.log('listMovies: ', listMovies);
 	const [isCheck, setIsCheck] = useState(false);
 
-	const onSelectGenre = evt => {
+	const onSelectGenre = (evt: any) => {
 		setIsCheck(!isCheck);
 		dispatch(setSelectedGenre(id));
-		debugger;
-
 		if (selectedCheckboxes.size === 0) {
 			setSelectedCheckboxes(new Set([...selectedCheckboxes, evt.target.value]));
 		}
@@ -33,9 +36,10 @@ function Genre({ title, id, sortAllMovies, selectedCheckboxes, setSelectedCheckb
 			selectedCheckboxes.delete(evt.target.value);
 
 			setSelectedCheckboxes(selectedCheckboxes);
+		} else {
+			setSelectedCheckboxes(new Set([...selectedCheckboxes, evt.target.value]));
 		}
-
-		setSelectedCheckboxes(new Set([...selectedCheckboxes, evt.target.value]));
+		debugger;
 
 		if (selectedGenres.includes(id)) {
 			dispatch(sortSelectedGenre(id));
@@ -45,10 +49,6 @@ function Genre({ title, id, sortAllMovies, selectedCheckboxes, setSelectedCheckb
 
 		dispatch(sortByGenre());
 	};
-
-	// useEffect(() => {
-	// 	if (!isCheck || listMovies.length === 0) {
-	// }, [isCheck]);
 
 	return (
 		<div className={styles.item}>

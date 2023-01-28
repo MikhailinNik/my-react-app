@@ -15,6 +15,11 @@ export interface Movie {
 	vote_count: number;
 }
 
+export interface CheckBoxes {
+	id: number;
+	name: string;
+}
+
 export const movies: Movie[] = [
 	{
 		adult: false,
@@ -4063,7 +4068,7 @@ export const movies: Movie[] = [
 	},
 ];
 
-export const checkboxes = [
+export const checkboxes: CheckBoxes[] = [
 	{
 		id: 28,
 		name: 'боевик',

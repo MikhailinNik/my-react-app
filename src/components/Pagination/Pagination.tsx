@@ -1,9 +1,11 @@
 import styles from './Pagination.module.scss';
 
+type NewType = (arg0: number) => void;
+
 type Props = {
 	totalPageCount: number;
 	currentPage: number;
-	onPageChanged: () => void;
+	onPageChanged: NewType;
 };
 
 function Pagination({ totalPageCount, currentPage, onPageChanged }: Props) {
