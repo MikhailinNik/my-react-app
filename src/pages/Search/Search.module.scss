@@ -1,0 +1,92 @@
+.root {
+	width: 100vw;
+	height: 100vh;
+
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	margin-top: 30px;
+}
+
+.content {
+	background: #00416a; /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #e4e5e6, #00416a); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #e4e5e6, #00416a);
+
+	width: 80vw;
+	height: 50vh;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	// align-self: center;
+
+	border-radius: 5px;
+	border: 1px solid #fff;
+	-webkit-box-shadow: 0px 3px 8px 1px rgba(34, 60, 80, 0.2);
+	-moz-box-shadow: 0px 3px 8px 1px rgba(34, 60, 80, 0.2);
+	box-shadow: 0px 3px 8px 1px rgba(34, 60, 80, 0.2);
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: #000;
+
+	h2 {
+		margin-top: 20px;
+	}
+}
+
+.applyBtn {
+	width: 30vw;
+	height: 30px;
+	margin-top: 10px;
+	color: #000;
+
+	background-color: rgba(38, 99, 255, 0.363);
+
+	border-radius: 5px;
+
+	text-align: center;
+	font-weight: 300;
+	font-size: 20px;
+}
+
+.vote {
+	button {
+		margin-top: 10px;
+	}
+
+	button:last-child {
+		margin-left: 50px;
+	}
+}
+
+.resultBtn {
+	margin-top: 30px;
+	width: 25vw;
+}
+
+.randomMovie {
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.voteBtnMore:disabled {
+	background-color: rgba(38, 99, 255, 0.075);
+}
+
+.voteBtnLess:disabled {
+	background-color: rgba(38, 99, 255, 0.075);
+}
+
+.btns:last-child {
+	button {
+		margin-left: 20px;
+	}
+}

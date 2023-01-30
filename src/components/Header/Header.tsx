@@ -23,9 +23,14 @@ function Header() {
 			{isAuth ? (
 				<button onClick={onLogOut}>Выйти</button>
 			) : (
-				<Link to="/login">
-					<button>Login</button>
-				</Link>
+				<>
+					<Link to="/search">
+						<button className={styles.searchBtn}>Random Film</button>
+					</Link>
+					<Link to="/login">
+						<button className={styles.loginBtn}>Login</button>
+					</Link>
+				</>
 			)}
 		</nav>
 	);

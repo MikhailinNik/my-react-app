@@ -12,6 +12,14 @@ export const IS_AUTH_LOCAL_STORAGE = 'IS_AUTH_LOCAL_STORAGE';
 export const LOG_OUT = 'LOG_OUT';
 export const ADD_TO_FAVORITE = 'ADD_TO_FAVORITE';
 export const ADD_TO_SEE_LATER = 'ADD_TO_SEE_LATER';
+export const DELETE_FAVORITE_MOVIE = 'DELETE_FAVORITE_MOVIE';
+export const DELETE_SEE_LATER_MOVIE = 'DELETE_SEE_LATER_MOVIE';
+export const SORT_BY_GENRE_RANDOM = 'SORT_BY_GENRE_RANDOM';
+export const SORT_BY_VOTE_MORE = 'SORT_BY_VOTE_MORE';
+export const SORT_BY_VOTE_LESS = 'SORT_BY_VOTE_LESS';
+export const SORT_POPULARITY_DESC = 'SORT_POPULARITY_DESC';
+export const SORT_POPULARITY_ASC = 'SORT_POPULARITY_ASC';
+export const RANDOM_MOVIE = 'RANDOM_MOVIE';
 
 const actionCreator = (type: string) => {
 	return (payload: any) => {
@@ -36,3 +44,11 @@ export const authByLocalStorage = actionCreator(IS_AUTH_LOCAL_STORAGE);
 export const logOut = actionCreator(LOG_OUT);
 export const addToFavorite = actionCreator(ADD_TO_FAVORITE);
 export const addToSeeLater = actionCreator(ADD_TO_SEE_LATER);
+export const deleteFavoriteMovie = actionCreator(DELETE_FAVORITE_MOVIE);
+export const deleteSeeLaterMovie = actionCreator(DELETE_SEE_LATER_MOVIE);
+export const sortByGenreRandom = actionCreator(SORT_BY_GENRE_RANDOM);
+export const sortByVoteMore = actionCreator(SORT_BY_VOTE_MORE);
+export const sortByVoteLess = actionCreator(SORT_BY_VOTE_LESS);
+export const sortPopularityDesc = actionCreator(SORT_POPULARITY_DESC);
+export const sortPopularityAsc = actionCreator(SORT_POPULARITY_ASC);
+export const randomMovie = actionCreator(RANDOM_MOVIE);

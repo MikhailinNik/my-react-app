@@ -1,18 +1,20 @@
-interface SortBy {
+import { genreOptions } from './const';
+import { checkboxes } from './../db';
+export interface SortBy {
 	popularityDesc: string;
 	popularityAsc: string;
 	rateDesc: string;
 	rateAsc: string;
 }
 
-interface SortByYear {
+export interface SortByYear {
 	1: number;
 	2: number;
 	3: number;
 	4: number;
 }
 
-interface AuthSort {
+export interface AuthSort {
 	seeLater: string;
 	favorite: string;
 }
@@ -46,4 +48,14 @@ export const AUTH_SORT: AuthSort = {
 export const LOGIN: Login = {
 	login: '123',
 	password: 123,
+};
+
+export const popularOptions = {
+	popular: 'Популярный',
+	unknown: 'Неизвестный',
+};
+
+export const voteOptions = {
+	high: 'Высокая',
+	low: 'Низкая',
 };

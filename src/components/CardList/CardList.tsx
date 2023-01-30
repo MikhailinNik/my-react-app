@@ -10,9 +10,14 @@ type Props = {
 function CardList({ movies }: Props) {
 	return (
 		<div className={styles.root}>
-			{movies.map((movie: Movie) => (
-				<Card key={movie.id} movie={movie} />
-			))}
+			{movies.length === 0 ? (
+				<>
+					<h2>Нет фильмов...</h2>
+					<span>Добавьте хотя бы один</span>
+				</>
+			) : (
+				movies.map((movie: Movie) => <Card key={movie.id} movie={movie} />)
+			)}
 		</div>
 	);
 }

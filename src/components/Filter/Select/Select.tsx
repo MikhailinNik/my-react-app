@@ -1,16 +1,20 @@
 import styles from './Select.module.scss';
 
-import { SELECT_VALUES } from '../../../ts/const';
+import { SortBy, SortByYear, AuthSort } from '../../../ts/const';
 
-type Props = {
-	props: any;
+type SelectProps = {
+	value: string | number | Set<number>[];
+	onChange: (arg0: any) => void;
+	sortMovies: SortBy | SortByYear | AuthSort;
 };
 
-function Select(props: Props) {
+function Select({ value, onChange, sortMovies }: SelectProps) {
 	return (
-		<select name="" id="" className={styles.select} onChange={props}>
-			{SELECT_VALUES.map(item => (
-				<option value={props}>{item}</option>
+		<select value={value} className={styles.select} onChange={onChange}>
+			{Object.values(sortMovies).map(item => (
+				<option key={item} value={item}>
+					{item}
+				</option>
 			))}
 		</select>
 	);

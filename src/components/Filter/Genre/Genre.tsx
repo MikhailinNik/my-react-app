@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../ts/hooks';
 
-import {
-	sortByGenre,
-	setSelectedGenre,
-	sortSelectedGenre,
-	setMovies,
-} from '../../../redux/actions';
+import { sortByGenre, setSelectedGenre, sortSelectedGenre } from '../../../redux/actions';
 
 import styles from './Genre.module.scss';
 
@@ -20,9 +15,7 @@ type Props = {
 
 function Genre({ title, id, sortAllMovies, selectedCheckboxes, setSelectedCheckboxes }: Props) {
 	const dispatch = useAppDispatch();
-	const { selectedGenres, listMovies } = useAppSelector(state => state.listFilms);
-	console.log('selectedGenres: ', selectedGenres);
-	console.log('listMovies: ', listMovies);
+	const { selectedGenres } = useAppSelector(state => state.listFilms);
 	const [isCheck, setIsCheck] = useState(false);
 
 	const onSelectGenre = (evt: any) => {
@@ -39,7 +32,6 @@ function Genre({ title, id, sortAllMovies, selectedCheckboxes, setSelectedCheckb
 		} else {
 			setSelectedCheckboxes(new Set([...selectedCheckboxes, evt.target.value]));
 		}
-		debugger;
 
 		if (selectedGenres.includes(id)) {
 			dispatch(sortSelectedGenre(id));

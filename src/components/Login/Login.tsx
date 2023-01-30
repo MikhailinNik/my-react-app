@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+
+import { useAppDispatch, useAppSelector } from '../../ts/hooks';
+
 import { Link } from 'react-router-dom';
 
 import { auth } from '../../redux/actions';
@@ -9,21 +11,18 @@ import styles from './Login.module.scss';
 import { useEffect } from 'react';
 
 function Login() {
-	const dispatch = useDispatch();
-	const { users, isAuth } = useSelector(state => state.users);
+	const dispatch = useAppDispatch();
+	const { isAuth } = useAppSelector(state => state.users);
 	const [loginValue, setLoginValue] = useState('');
 	const [passwordValue, setPasswordValue] = useState('');
 
-	console.log('users: ', users);
 	useEffect(() => {
 		if (isAuth) {
 			localStorage.setItem('isAuth', isAuth);
-
-			console.log('isAuth: ', isAuth);
 		}
 	}, [isAuth]);
 
-	const submit = evt => {
+	const submit = (evt: any) => {
 		evt.preventDefault();
 
 		const user = {

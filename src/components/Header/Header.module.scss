@@ -15,10 +15,6 @@
 	}
 
 	button {
-		width: 70px;
-		height: 30px;
-		margin-right: 50px;
-
 		background-color: rgb(126, 188, 32);
 		color: rgb(255, 255, 255);
 
@@ -27,4 +23,15 @@
 
 		font-size: 17px;
 	}
+}
+
+.searchBtn {
+	margin-left: 50px;
+	width: 150px;
+}
+
+.loginBtn {
+	width: 70px;
+	height: 30px;
+	margin-right: 50px;
 }

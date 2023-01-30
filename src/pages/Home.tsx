@@ -14,6 +14,7 @@ import { FIRST_PAGE } from '../ts/const';
 function Home() {
 	const dispatch = useAppDispatch();
 	const { listMovies } = useAppSelector(state => state.listFilms);
+
 	const [totalCount, setTotalCount] = useState(movies.length);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize, setPageSize] = useState(10);

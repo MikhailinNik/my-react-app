@@ -18,6 +18,7 @@ import styles from './Filter.module.scss';
 
 import { SORT_BY, SORT_BY_YEAR, AUTH_SORT } from '../../ts/const';
 import { CheckBoxes, Movie } from '../../db';
+import Select from './Select/Select';
 
 interface Props {
 	checkboxes: CheckBoxes[];
@@ -29,9 +30,11 @@ function Filter({ checkboxes, movies }: Props) {
 	const { listMovies } = useAppSelector(state => state.listFilms);
 	const { isAuth } = useAppSelector(state => state.users);
 	const { favorites, seeLater } = useAppSelector(state => state.favorites);
+
 	const [selected, setSelected] = useState(SORT_BY_POPULARITY_DESC);
 	const [selectedByYear, setSelectedByYear] = useState(0);
 	const [selectedCheckboxes, setSelectedCheckboxes] = useState(new Set([]));
+	const [selectedFavorite, setSelectedFavorite] = useState(AUTH_SORT.favorite);
 
 	useEffect(() => {
 		if (!isAuth) {
@@ -42,7 +45,7 @@ function Filter({ checkboxes, movies }: Props) {
 				console.log(error);
 			}
 		}
-	}, [selected, selectedByYear, listMovies]);
+	}, []);
 
 	const sortList = (evt: any) => {
 		setSelected(evt.target.value);
@@ -83,11 +86,19 @@ function Filter({ checkboxes, movies }: Props) {
 		dispatch(sortByPopularityDesc(movies));
 	};
 
-	const sortUserMovies = () => {
-		if (AUTH_SORT.favorite) {
-			return dispatch(setMovies(favorites));
+	const sortUserMovies = (evt: object) => {
+		const favoriteMovies = localStorage.getItem('favorites');
+		const seeLaterMovies = localStorage.getItem('seeLater');
+
+		setSelectedFavorite(evt.target.value);
+
+		if (evt.target.value === AUTH_SORT.favorite) {
+			if (favoriteMovies?.length !== 0) {
+				return dispatch(setMovies(JSON.parse(favoriteMovies)));
+			}
 		}
-		return dispatch(setMovies(seeLater));
+
+		return dispatch(setMovies(JSON.parse(seeLaterMovies)));
 	};
 
 	const sortAllMovies = () => {
@@ -116,30 +127,14 @@ function Filter({ checkboxes, movies }: Props) {
 				Сбросить все фильтры
 			</button>
 			<span>Сортировать по: </span>
-			<select value={selected} className={styles.select} onChange={sortList}>
-				{Object.values(SORT_BY).map((item: string) => (
-					<option key={item} value={item}>
-						{item}
-					</option>
-				))}
-			</select>
+			<Select value={selected} onChange={sortList} sortMovies={SORT_BY} />
 			<span>Год релиза: </span>
-			<select value={selectedByYear} className={styles.select} onChange={sortListByYear}>
-				{Object.values(SORT_BY_YEAR).map((year: number) => (
-					<option key={year} value={year.toString()}>
-						{year.toString()}
-					</option>
-				))}
-			</select>
+			<Select value={selectedByYear} onChange={sortListByYear} sortMovies={SORT_BY_YEAR} />
 			{isAuth ? (
-				<select className={styles.select} onChange={sortUserMovies}>
-					{Object.values(AUTH_SORT).map((value: string) => (
-						<option key={value} value={value}>
-							{value}
-						</option>
-					))}
-				</select>
-			) : null}
+				<Select value={selectedFavorite} onChange={sortUserMovies} sortMovies={AUTH_SORT} />
+			) : (
+				false
+			)}
 			<ul className={styles.list}>
 				{checkboxes.map((item: { id: number; name: string }) => (
 					<Genre
