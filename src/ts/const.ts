@@ -1,6 +1,5 @@
-import { genreOptions } from './const';
-import { checkboxes } from './../db';
 export interface SortBy {
+	all: string;
 	popularityDesc: string;
 	popularityAsc: string;
 	rateDesc: string;
@@ -26,6 +25,7 @@ interface Login {
 
 export const defaultName: string = '';
 export const SORT_BY: SortBy = {
+	all: 'Все',
 	popularityDesc: 'Пополярные по убыванию',
 	popularityAsc: 'Пополярные по возрастанию',
 	rateDesc: 'Рейтинг по убыванию',

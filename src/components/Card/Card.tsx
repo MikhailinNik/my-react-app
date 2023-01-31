@@ -37,9 +37,6 @@ function Card({ movie }: movie) {
 		if (isSave) {
 			localStorage.setItem('seeLater', JSON.stringify(seeLater));
 		}
-
-		if (isAuth) {
-		}
 	}, [colorFavorite, seeLater]);
 
 	const onAddToFavorite = () => {

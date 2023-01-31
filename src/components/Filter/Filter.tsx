@@ -51,6 +51,8 @@ function Filter({ checkboxes, movies }: Props) {
 		setSelected(evt.target.value);
 
 		switch (evt.target.value) {
+			case SORT_BY.all:
+				return dispatch(setMovies(movies));
 			case SORT_BY.popularityDesc:
 				return dispatch(sortByPopularityDesc(listMovies));
 
@@ -86,19 +88,20 @@ function Filter({ checkboxes, movies }: Props) {
 		dispatch(sortByPopularityDesc(movies));
 	};
 
-	const sortUserMovies = (evt: object) => {
+	const sortUserMovies = (evt: any) => {
 		const favoriteMovies = localStorage.getItem('favorites');
 		const seeLaterMovies = localStorage.getItem('seeLater');
 
 		setSelectedFavorite(evt.target.value);
 
 		if (evt.target.value === AUTH_SORT.favorite) {
-			if (favoriteMovies?.length !== 0) {
-				return dispatch(setMovies(JSON.parse(favoriteMovies)));
-			}
+			favoriteMovies !== null
+				? dispatch(setMovies(JSON.parse(favoriteMovies)))
+				: dispatch(setMovies(favorites));
 		}
-
-		return dispatch(setMovies(JSON.parse(seeLaterMovies)));
+		seeLaterMovies !== null
+			? dispatch(setMovies(JSON.parse(seeLaterMovies)))
+			: dispatch(setMovies(seeLater));
 	};
 
 	const sortAllMovies = () => {
